@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { TimelineLite, TweenLite } from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 import _debounce from "lodash/debounce";
 import classnames from "classnames";
 
