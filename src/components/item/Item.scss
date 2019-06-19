@@ -1,0 +1,46 @@
+@import "./../../styles/config";
+
+.item {
+  position: relative;
+  min-height: 100vh;
+
+  @media (min-width: $min-tablet) {
+    height: 100vh;
+  }
+
+  &__inner {
+    position: absolute;
+    bottom: 10vh;
+  }
+
+  &__heading {
+    @include reset-heading;
+    @include responsive-font(32, 46);
+
+    padding-top: $gutter;
+
+    color: $color-font;
+    text-decoration: none;
+
+    font-family: $font-family;
+    font-weight: 100;
+    line-height: (66 / 56);
+
+    @media (min-width: $min-tablet) {
+      padding-top: 150px;
+    }
+  }
+
+  &__description {
+    @include responsive-font(15, 18);
+
+    margin-bottom: $gutter;
+
+    @media (min-width: $min-tablet) {
+      width: percentage(8/12);
+
+      margin-bottom: 78px;
+      margin-right: 200px;
+    }
+  }
+}

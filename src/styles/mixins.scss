@@ -1,0 +1,134 @@
+/***
+*  This file is coming from our starter kit 
+*  https://github.com/ueno-llc/starter-kit-universally
+*/
+
+@mixin fit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@mixin responsive-font(
+  $min-size: $font-size-min,
+  $size: $font-size,
+  $limit: $page-limit
+) {
+  $unitless-min: strip-unit($min-size);
+  $unitless-size: strip-unit($size);
+  $baseline: strip-unit($min-mobile);
+
+  $font-multiplier: (
+    ($unitless-size - $unitless-min) / (strip-unit($limit) - $baseline)
+  );
+  $font-baseline: ($unitless-min - $font-multiplier * $baseline);
+
+  @if $unitless-min >= $unitless-size {
+    @warn 'Responsive font: min-size equal or greater than size';
+  }
+
+  font-size: #{$unitless-min}px;
+  font-size: calc(#{$unitless-min}px * #{var(--scale-font)});
+
+  @media (min-width: $min-mobile) {
+    font-size: #{$unitless-min}px;
+    font-size: calc(
+      (#{$font-multiplier} * #{100vw} + (#{$font-baseline}px)) * #{var(
+          --scale-font
+        )}
+    );
+  }
+
+  @media (min-width: $limit) {
+    font-size: #{$unitless-size}px;
+    font-size: calc(#{$unitless-size}px * #{var(--scale-font)});
+  }
+}
+
+@mixin vertically-responsive($property, $number) {
+  #{$property}: $number;
+
+  @supports (--css: variables) {
+    #{$property}: calc(#{$number} * var(--scale-element));
+  }
+}
+
+@mixin container() {
+  margin: 0 auto;
+
+  padding-left: $container-gutter-mobile;
+  padding-right: $container-gutter-mobile;
+
+  max-width: $page-width + $container-gutter-mobile * 1;
+
+  @media (min-width: $min-mobile) {
+    max-width: $page-width + $container-gutter-mobile * 2;
+  }
+
+  @media (min-width: $min-tablet) {
+    padding-left: $container-gutter-tablet;
+    padding-right: $container-gutter-tablet;
+    max-width: $page-width + $container-gutter-tablet * 2;
+  }
+
+  @media (min-width: $min-desktop) {
+    padding-left: $container-gutter-desktop;
+    padding-right: $container-gutter-desktop;
+    max-width: $page-width + $container-gutter-desktop * 2;
+  }
+}
+
+// Offseting hero image
+@mixin heroImage($direction: left, $heroOffset: 190px, $scale: false) {
+  @if $direction == right {
+    margin-right: -$gutter;
+
+    @media (min-width: $min-tablet) {
+      margin-right: -$container-gutter-tablet;
+    }
+
+    @media (min-width: $min-desktop) {
+      margin-right: -$container-gutter-desktop;
+    }
+
+    @media (min-width: $page-width + $heroOffset - 50px) {
+      margin-right: calc((100vw - #{$page-width}) / -2);
+    }
+
+    @if $scale == false {
+      @media (min-width: 1670px) {
+        margin-right: -$heroOffset;
+      }
+    }
+  } @else if $direction == left {
+    margin-left: -$gutter;
+
+    @media (min-width: $min-tablet) {
+      margin-left: -$container-gutter-tablet;
+    }
+
+    @media (min-width: $min-desktop) {
+      margin-left: -$container-gutter-desktop;
+    }
+
+    @media (min-width: $page-width + $heroOffset - 50px) {
+      margin-left: calc((100vw - #{$page-width}) / -2);
+    }
+
+    @if $scale == false {
+      @media (min-width: 1670px) {
+        margin-left: -$heroOffset;
+      }
+    }
+  }
+}

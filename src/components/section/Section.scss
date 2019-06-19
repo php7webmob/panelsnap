@@ -1,0 +1,103 @@
+@import "./../../styles/config";
+
+.section {
+  &__container {
+    @include container();
+    position: relative;
+  }
+
+  &__navigation {
+    position: absolute;
+    top: 150px;
+    bottom: 0;
+    right: $container-gutter-desktop;
+    z-index: 2;
+  }
+
+  &__buttons {
+    display: none;
+
+    @media (min-width: $min-tablet) {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+      flex-direction: column;
+
+      position: sticky;
+      top: 150px;
+    }
+  }
+
+  &__button {
+    @include reset-button;
+
+    margin-bottom: $gutter;
+
+    cursor: pointer;
+    transition: color $transition-enter ease-in-out;
+
+    &.isActive {
+      color: $color-primary;
+    }
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__colLeft {
+    @include grid-col(percentage(5/12));
+  }
+
+  &__imageOffset {
+    @include heroImage($scale: true);
+    position: sticky;
+    top: 0;
+
+    height: 100vh;
+
+    overflow: hidden;
+  }
+
+  &__images {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &__imageSource {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__imageOverlayAnimation {
+    @include fit;
+
+    z-index: 3;
+
+    background-color: $color-primary;
+
+    transform: translateY(-100%);
+    will-change: transform;
+  }
+
+  &__colRight {
+    @include grid-col(percentage(7/12));
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(percentage(6/12));
+      margin-left: percentage(1/12);
+    }
+  }
+}
