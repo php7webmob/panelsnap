@@ -7,7 +7,7 @@
   "dependencies": {
     "autoprefixer": "9.3.1",
     "classnames": "2.2.6",
-    "gsap": "2.0.2",
+    "gsap": "3.6.0",
     "intersection-observer": "0.5.1",
     "lodash": "4.17.11",
     "node-sass": "^4.12.0",
